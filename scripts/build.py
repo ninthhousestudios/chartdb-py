@@ -46,7 +46,7 @@ def check_prerequisites():
         sys.exit(1)
 
 
-def build_command(sign: bool = False) -> list[str]:
+def build_command() -> list[str]:
     system = platform.system()
     entry = str(PROJECT_ROOT / "aditya-chartdb.py")
 
@@ -96,12 +96,6 @@ def build_command(sign: bool = False) -> list[str]:
         if icon_path.exists():
             cmd.append(f"--macos-app-icon={icon_path}")
 
-        if sign:
-            cmd.extend([
-                "--macos-sign-identity=-",  # ad-hoc; replace with your identity
-                "--macos-sign-notarization",
-            ])
-
     # the entry point script
     cmd.append(entry)
 
@@ -110,13 +104,12 @@ def build_command(sign: bool = False) -> list[str]:
 
 def main():
     parser = argparse.ArgumentParser(description="Build Aditya ChartDB with Nuitka")
-    parser.add_argument("--sign", action="store_true", help="code-sign the build (macOS)")
     parser.add_argument("--dry-run", action="store_true", help="print the command without running")
     args = parser.parse_args()
 
     check_prerequisites()
 
-    cmd = build_command(sign=args.sign)
+    cmd = build_command()
 
     print("build command:", flush=True)
     print("  " + " \\\n    ".join(cmd), flush=True)

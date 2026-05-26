@@ -28,20 +28,15 @@ output lands in `dist/`.
 **macOS:**
 
 ```bash
-# unsigned (testers get gatekeeper warning, right-click → Open to bypass)
 uv run python scripts/build.py
-
-# signed + notarized (requires apple developer account)
-# first, find your signing identity:
-security find-identity -v -p codesigning
-# then edit scripts/build.py line with --macos-sign-identity to use your identity
-uv run python scripts/build.py --sign
 ```
 
-produces `dist/Aditya ChartDB.app`. to distribute, create a dmg:
+produces `dist/Aditya ChartDB.app` and `dist/aditya-chartdb` (standalone executable). sign and notarize separately — nuitka's built-in signing is unreliable. to make a dmg:
 
 ```bash
-hdiutil create -volname "Aditya ChartDB" -srcfolder "dist/Aditya ChartDB.app" -ov -format UDZO dist/aditya-chartdb.dmg
+codesign --deep --force --sign "Developer ID Application: ..." dist/aditya-chartdb
+hdiutil create -volname "Aditya ChartDB" -srcfolder dist/aditya-chartdb -ov -format UDZO dist/aditya-chartdb.dmg
+xcrun notarytool submit dist/aditya-chartdb.dmg --apple-id ... --team-id ... --password ...
 ```
 
 **windows:**

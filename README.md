@@ -89,8 +89,7 @@ uv sync --group build
 uv run python scripts/build-sample-db.py /path/to/charts/database --count 100
 
 # build the app
-uv run python scripts/build.py            # unsigned
-uv run python scripts/build.py --sign     # macOS: signed + notarized
+uv run python scripts/build.py            # build
 uv run python scripts/build.py --dry-run  # print the nuitka command without running
 ```
 
