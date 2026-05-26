@@ -54,6 +54,7 @@ def build_command(sign: bool = False) -> list[str]:
         sys.executable, "-m", "nuitka",
         "--standalone",
         "--onefile",
+        "--assume-yes-for-downloads",
         f"--output-filename=aditya-chartdb{'.exe' if system == 'Windows' else ''}",
         f"--output-dir={PROJECT_ROOT / 'dist'}",
 
@@ -117,20 +118,21 @@ def main():
 
     cmd = build_command(sign=args.sign)
 
-    print("build command:")
-    print("  " + " \\\n    ".join(cmd))
-    print()
+    print("build command:", flush=True)
+    print("  " + " \\\n    ".join(cmd), flush=True)
+    print(flush=True)
 
     if args.dry_run:
         return
 
     (PROJECT_ROOT / "dist").mkdir(exist_ok=True)
+    print("starting nuitka (this takes several minutes)...", flush=True)
     result = subprocess.run(cmd, cwd=PROJECT_ROOT)
     if result.returncode != 0:
-        print(f"\nbuild failed (exit {result.returncode})")
+        print(f"\nbuild failed (exit {result.returncode})", flush=True)
         sys.exit(result.returncode)
 
-    print("\nbuild complete — output in dist/")
+    print("\nbuild complete — output in dist/", flush=True)
 
 
 if __name__ == "__main__":
