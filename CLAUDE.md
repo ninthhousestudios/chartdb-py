@@ -2,7 +2,7 @@
 
 ## Project
 
-Vedic astrology chart database with SQLite backend, FTS5 search, EAV property filters, and cosine-similarity vector search. PySide6 GUI. Depends on `libaditya` at `../libaditya`.
+Vedic astrology chart database with SQLite backend, FTS5 search, EAV property filters, and cosine-similarity vector search. PySide6 GUI. Depends on [libaditya](https://gitlab.com/ninthhouse/libaditya).
 
 ## Commands
 
@@ -35,7 +35,15 @@ uv run python -m chartdb filter Sun.sign_name=Aries Moon.trimsamsa_being=Gandhar
 2. Add the `(db_name, display_name)` tuple to `PROPERTIES` in `gui.py`.
 3. Run `rebuild` to recompute for existing charts.
 
+## Build
+
+- `aditya-chartdb.py` — top-level entry point for Nuitka builds (GUI-only launcher).
+- `scripts/build.py` — Nuitka build script, platform-aware (macOS .app bundle + signing, Windows no-console).
+- `scripts/build-sample-db.py` — builds `data/charts.db` from a random sample of .chtk files.
+- `data/charts.db` — bundled sample database shipped with builds.
+
 ## Dependencies
 
-- `libaditya` must be at `../libaditya` (editable path dep via uv).
+- `libaditya` is pulled from GitLab (`https://gitlab.com/ninthhouse/libaditya`) via uv.
+- For local dev against a local libaditya checkout, override in pyproject.toml: `libaditya = { path = "../libaditya", editable = true }`
 - Use `uv`, not pip.

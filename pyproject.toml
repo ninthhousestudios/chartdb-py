@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Chart database with vector similarity search for vedic astrology"
 requires-python = ">=3.10,<=3.13"
 dependencies = [
+    "libaditya",
     "numpy>=2.0",
     "pyside6>=6.7",
 ]
@@ -13,9 +14,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.uv.sources]
-libaditya = { path = "../libaditya", editable = true }
+libaditya = { git = "https://gitlab.com/ninthhouse/libaditya" }
 
 [dependency-groups]
-dev = [
-    "libaditya",
+build = [
+    "nuitka>=2.0",
+    "ordered-set>=4.1",
+    "zstandard>=0.22",
 ]

@@ -7,3 +7,6 @@ build/
 .venv/
 *.db
 uv.lock
+charts.db
+docs/nuitka-build.md
+docs/
