@@ -1,3 +1,6 @@
+
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 # Aditya ChartDB
 
 A vedic astrology chart database with full-text search, composable property filters, and vector similarity search. Built on SQLite and [libaditya](https://gitlab.com/ninthhouse/libaditya).
